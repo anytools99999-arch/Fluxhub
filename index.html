@@ -481,7 +481,7 @@
             align-items: center;
         }
 
-        /* Play Modal */
+        /* Play Modal - WITHOUT TIMER */
         .play-modal {
             display: none;
             position: fixed;
@@ -500,7 +500,7 @@
             background-color: white;
             border-radius: 20px;
             padding: 40px;
-            max-width: 600px;
+            max-width: 500px;
             width: 100%;
             text-align: center;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -560,32 +560,7 @@
         }
 
         .loading-container {
-            margin: 40px 0;
-        }
-
-        .timer-display {
-            font-size: 48px;
-            font-weight: 700;
             margin: 30px 0;
-            color: var(--primary);
-            font-family: 'Inter', monospace;
-        }
-
-        .progress-container {
-            width: 100%;
-            height: 12px;
-            background-color: var(--border-color);
-            border-radius: 6px;
-            margin: 30px 0;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 6px;
-            transition: width 1s linear;
         }
 
         .loading-text {
@@ -618,8 +593,31 @@
             50% { transform: scale(1.2); opacity: 1; }
         }
 
+        .server-message {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .server-message i {
+            color: #f39c12;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .server-message h4 {
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+
         .modal-actions {
             margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
 
         .btn-cancel {
@@ -635,6 +633,21 @@
 
         .btn-cancel:hover {
             background-color: #e9ecef;
+        }
+
+        .btn-try-again {
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-try-again:hover {
+            background-color: var(--secondary);
         }
 
         /* Notification */
@@ -813,13 +826,17 @@
                 padding: 30px 20px;
             }
             
-            .timer-display {
-                font-size: 36px;
-            }
-            
             .games-grid {
                 grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
                 gap: 15px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .btn-cancel, .btn-try-again {
+                width: 100%;
             }
         }
 
@@ -899,7 +916,7 @@
                 
                 <div class="featured-games">
                     <div class="featured-game">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA 5">
+                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/271590/capsule_616x353.jpg?t=1695060941" alt="GTA 5">
                         <div class="featured-game-overlay">
                             <div style="font-weight: 700; font-size: 18px;">GTA 5</div>
                             <div style="font-size: 14px;">PC Game</div>
@@ -907,7 +924,7 @@
                     </div>
                     
                     <div class="featured-game">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/5/5d/Subway_Surfers_icon.png" alt="Subway Surfers">
+                        <img src="https://play-lh.googleusercontent.com/SO6Y3hc-8JiR8x1gvLtaWpYD9W2fGfQjB4j7pPp-U0VqC-NMwDvVW3jG0iHcK5cGw0U=w526-h296-rw" alt="Subway Surfers">
                         <div class="featured-game-overlay">
                             <div style="font-weight: 700; font-size: 18px;">Subway Surfers</div>
                             <div style="font-size: 14px;">Mobile Game</div>
@@ -915,7 +932,7 @@
                     </div>
                     
                     <div class="featured-game">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/2/2c/Fortnite_%28logo%29.png" alt="Fortnite">
+                        <img src="https://cdn2.unrealengine.com/fortnite-home-promo-1920x1080-1920x1080-952234543.jpg" alt="Fortnite">
                         <div class="featured-game-overlay">
                             <div style="font-weight: 700; font-size: 18px;">Fortnite</div>
                             <div style="font-size: 14px;">PC Game</div>
@@ -923,7 +940,7 @@
                     </div>
                     
                     <div class="featured-game">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/3/3d/PlayerUnknown%27s_Battlegrounds_Steam_Logo.jpg" alt="PUBG">
+                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/578080/capsule_616x353.jpg?t=1705996348" alt="PUBG">
                         <div class="featured-game-overlay">
                             <div style="font-weight: 700; font-size: 18px;">PUBG</div>
                             <div style="font-size: 14px;">PC Game</div>
@@ -1001,7 +1018,7 @@
         </section>
     </main>
 
-    <!-- Play Modal -->
+    <!-- Play Modal - WITHOUT TIMER -->
     <div class="play-modal" id="playModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1014,13 +1031,7 @@
             </div>
             
             <div class="loading-container">
-                <div class="loading-text" id="loadingStage">Initializing game engine...</div>
-                
-                <div class="timer-display" id="timerDisplay">01:00</div>
-                
-                <div class="progress-container">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
+                <div class="loading-text" id="loadingStage">Connecting to game servers...</div>
                 
                 <div class="loading-animation">
                     <div class="loading-dot"></div>
@@ -1028,21 +1039,19 @@
                     <div class="loading-dot"></div>
                     <div class="loading-dot"></div>
                 </div>
+                
+                <div class="server-message">
+                    <i class="fas fa-server"></i>
+                    <h4>Server Busy</h4>
+                    <p>Our servers are currently at full capacity. Please try again after some time.</p>
+                </div>
             </div>
             
             <div class="modal-actions">
-                <button class="btn-cancel" id="cancelBtn">Cancel</button>
+                <button class="btn-cancel" id="cancelBtn">Back to Games</button>
+                <button class="btn-try-again" id="tryAgainBtn">Try Again</button>
             </div>
         </div>
-    </div>
-
-    <!-- Notification -->
-    <div class="notification" id="notification">
-        <div class="notification-header">
-            <i class="fas fa-exclamation-triangle notification-icon"></i>
-            <div class="notification-title">Server Busy</div>
-        </div>
-        <p>Our servers are currently at full capacity. Please try again after some time.</p>
     </div>
 
     <!-- Footer -->
@@ -1101,61 +1110,61 @@
     </footer>
 
     <script>
-        // Game Data with REAL Game Icons - 50 Games (25 PC, 25 Mobile)
+        // Game Data with REAL Game Icons - Using reliable image sources
         const games = {
             pc: [
-                { id: 1, name: "Grand Theft Auto V", type: "pc", desc: "Open-world action adventure", img: "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" },
-                { id: 2, name: "Cyberpunk 2077", type: "pc", desc: "Futuristic RPG", img: "https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg" },
-                { id: 3, name: "The Witcher 3", type: "pc", desc: "Fantasy adventure RPG", img: "https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg" },
-                { id: 4, name: "Elden Ring", type: "pc", desc: "Action RPG", img: "https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg" },
-                { id: 5, name: "Red Dead Redemption 2", type: "pc", desc: "Western adventure", img: "https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg" },
-                { id: 6, name: "Fortnite", type: "pc", desc: "Battle Royale", img: "https://upload.wikimedia.org/wikipedia/en/2/2c/Fortnite_%28logo%29.png" },
-                { id: 7, name: "Call of Duty: Warzone", type: "pc", desc: "Military shooter", img: "https://upload.wikimedia.org/wikipedia/en/0/04/Call_of_Duty_Warzone_Logo.png" },
-                { id: 8, name: "Minecraft", type: "pc", desc: "Sandbox creativity", img: "https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png" },
-                { id: 9, name: "Valorant", type: "pc", desc: "Tactical FPS", img: "https://upload.wikimedia.org/wikipedia/en/f/f8/Valorant_logo_-_pink_color_version.svg" },
-                { id: 10, name: "Apex Legends", type: "pc", desc: "Hero battle royale", img: "https://upload.wikimedia.org/wikipedia/en/d/db/Apex_legends_cover.jpg" },
-                { id: 11, name: "Counter-Strike 2", type: "pc", desc: "Competitive shooter", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Counter-Strike_2_logo.svg/1200px-Counter-Strike_2_logo.svg.png" },
-                { id: 12, name: "FIFA 23", type: "pc", desc: "Football simulation", img: "https://upload.wikimedia.org/wikipedia/en/6/67/FIFA_23_Standard_Edition.jpg" },
-                { id: 13, name: "Destiny 2", type: "pc", desc: "MMO FPS", img: "https://upload.wikimedia.org/wikipedia/en/0/05/Destiny_2_%28artwork%29.jpg" },
-                { id: 14, name: "Rocket League", type: "pc", desc: "Soccer with cars", img: "https://upload.wikimedia.org/wikipedia/en/a/a0/Rocket_League_coverart.jpg" },
-                { id: 15, name: "Rainbow Six Siege", type: "pc", desc: "Tactical shooter", img: "https://upload.wikimedia.org/wikipedia/en/3/33/Rainbow_Six_Siege_cover_art.jpg" },
-                { id: 16, name: "Overwatch 2", type: "pc", desc: "Team-based shooter", img: "https://upload.wikimedia.org/wikipedia/en/3/33/Overwatch_2_Logo.jpg" },
-                { id: 17, name: "League of Legends", type: "pc", desc: "MOBA", img: "https://upload.wikimedia.org/wikipedia/en/1/12/League_of_Legends_Logo.png" },
-                { id: 18, name: "Dota 2", type: "pc", desc: "Competitive MOBA", img: "https://upload.wikimedia.org/wikipedia/en/1/15/Dota_2_Logo.png" },
-                { id: 19, name: "PUBG: Battlegrounds", type: "pc", desc: "Battle royale", img: "https://upload.wikimedia.org/wikipedia/en/3/3d/PlayerUnknown%27s_Battlegrounds_Steam_Logo.jpg" },
-                { id: 20, name: "Hogwarts Legacy", type: "pc", desc: "Harry Potter RPG", img: "https://upload.wikimedia.org/wikipedia/en/7/7d/Hogwarts-Legacy-cover.jpg" },
-                { id: 21, name: "God of War Ragnarök", type: "pc", desc: "Mythological action", img: "https://upload.wikimedia.org/wikipedia/en/e/ee/God_of_War_Ragnar%C3%B6k_cover.jpg" },
-                { id: 22, name: "Far Cry 6", type: "pc", desc: "Open-world FPS", img: "https://upload.wikimedia.org/wikipedia/en/6/6e/Far_Cry_6_Key_Art.jpg" },
-                { id: 23, name: "Assassin's Creed Valhalla", type: "pc", desc: "Viking adventure", img: "https://upload.wikimedia.org/wikipedia/en/f/ff/Assassin%27s_Creed_Valhalla_cover.jpg" },
-                { id: 24, name: "Resident Evil 4 Remake", type: "pc", desc: "Survival horror", img: "https://upload.wikimedia.org/wikipedia/en/6/6c/Resident_Evil_4_remake_cover.jpg" },
-                { id: 25, name: "Starfield", type: "pc", desc: "Space RPG", img: "https://upload.wikimedia.org/wikipedia/en/3/30/Starfield_cover.jpg" }
+                { id: 1, name: "Grand Theft Auto V", type: "pc", desc: "Open-world action adventure", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/271590/capsule_184x69.jpg" },
+                { id: 2, name: "Cyberpunk 2077", type: "pc", desc: "Futuristic RPG", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/capsule_184x69.jpg" },
+                { id: 3, name: "The Witcher 3", type: "pc", desc: "Fantasy adventure RPG", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/capsule_184x69.jpg" },
+                { id: 4, name: "Elden Ring", type: "pc", desc: "Action RPG", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/capsule_184x69.jpg" },
+                { id: 5, name: "Red Dead Redemption 2", type: "pc", desc: "Western adventure", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/capsule_184x69.jpg" },
+                { id: 6, name: "Fortnite", type: "pc", desc: "Battle Royale", img: "https://cdn2.unrealengine.com/fortnite-egs-launcher-icn-400x400-9e0d6b5a4a6c.png" },
+                { id: 7, name: "Call of Duty: Warzone", type: "pc", desc: "Military shooter", img: "https://www.callofduty.com/content/dam/atvi/callofduty/cod-touchui/blog/hero/wz/WZ-BR-Season-Three-Announce-TOUT.jpg" },
+                { id: 8, name: "Minecraft", type: "pc", desc: "Sandbox creativity", img: "https://www.minecraft.net/content/dam/games/minecraft/key-art/MC_KeyArt_OG_image.jpg" },
+                { id: 9, name: "Valorant", type: "pc", desc: "Tactical FPS", img: "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt6a6c11f0d2e30c4d/655f40a5e8c6d4116b4c0472/Valorant_2024_EP8_Article_Banner.jpg" },
+                { id: 10, name: "Apex Legends", type: "pc", desc: "Hero battle royale", img: "https://media.contentapi.ea.com/content/dam/apex-legends/images/2024/03/apex-featured-image-16x9.jpg.adapt.crop16x9.1023w.jpg" },
+                { id: 11, name: "Counter-Strike 2", type: "pc", desc: "Competitive shooter", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/730/capsule_184x69.jpg" },
+                { id: 12, name: "FIFA 23", type: "pc", desc: "Football simulation", img: "https://cdn1.epicgames.com/spt-assets/3a5a4c9006cd4bf5b8c7b8e2c30d6e4a/fifa-23-offer-logo-1c7k8.png" },
+                { id: 13, name: "Destiny 2", type: "pc", desc: "MMO FPS", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/1085660/capsule_184x69.jpg" },
+                { id: 14, name: "Rocket League", type: "pc", desc: "Soccer with cars", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/252950/capsule_184x69.jpg" },
+                { id: 15, name: "Rainbow Six Siege", type: "pc", desc: "Tactical shooter", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/359550/capsule_184x69.jpg" },
+                { id: 16, name: "Overwatch 2", type: "pc", desc: "Team-based shooter", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/2357570/capsule_184x69.jpg" },
+                { id: 17, name: "League of Legends", type: "pc", desc: "MOBA", img: "https://images.contentstack.io/v3/assets/blt187521ff0727be24/blt72b0f5b495fe4a28/60ee13a5f5d1c40ee5c2e6c8/riot-games-lol.jpg" },
+                { id: 18, name: "Dota 2", type: "pc", desc: "Competitive MOBA", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/570/capsule_184x69.jpg" },
+                { id: 19, name: "PUBG: Battlegrounds", type: "pc", desc: "Battle royale", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/578080/capsule_184x69.jpg" },
+                { id: 20, name: "Hogwarts Legacy", type: "pc", desc: "Harry Potter RPG", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/990080/capsule_184x69.jpg" },
+                { id: 21, name: "God of War Ragnarök", type: "pc", desc: "Mythological action", img: "https://image.api.playstation.com/vulcan/ap/rnd/202207/1210/4xJ8XB3bi888QTLZYdl7OiDO.jpg" },
+                { id: 22, name: "Far Cry 6", type: "pc", desc: "Open-world FPS", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/2369390/capsule_184x69.jpg" },
+                { id: 23, name: "Assassin's Creed Valhalla", type: "pc", desc: "Viking adventure", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/2208920/capsule_184x69.jpg" },
+                { id: 24, name: "Resident Evil 4 Remake", type: "pc", desc: "Survival horror", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/2050650/capsule_184x69.jpg" },
+                { id: 25, name: "Starfield", type: "pc", desc: "Space RPG", img: "https://cdn.cloudflare.steamstatic.com/steam/apps/1716740/capsule_184x69.jpg" }
             ],
             mobile: [
-                { id: 26, name: "Subway Surfers", type: "mobile", desc: "Endless runner", img: "https://upload.wikimedia.org/wikipedia/en/5/5d/Subway_Surfers_icon.png" },
-                { id: 27, name: "PUBG Mobile", type: "mobile", desc: "Battle royale", img: "https://upload.wikimedia.org/wikipedia/en/3/3a/PUBG_Mobile_Steam_Logo.jpg" },
-                { id: 28, name: "Call of Duty: Mobile", type: "mobile", desc: "Mobile FPS", img: "https://upload.wikimedia.org/wikipedia/en/9/9a/Call_of_Duty_Mobile_logo.png" },
-                { id: 29, name: "Genshin Impact", type: "mobile", desc: "Open-world RPG", img: "https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg" },
-                { id: 30, name: "Clash of Clans", type: "mobile", desc: "Strategy MMO", img: "https://upload.wikimedia.org/wikipedia/en/8/8a/Clash_of_Clans_logo.png" },
-                { id: 31, name: "Clash Royale", type: "mobile", desc: "Real-time strategy", img: "https://upload.wikimedia.org/wikipedia/en/0/09/Clash_Royale_logo.png" },
-                { id: 32, name: "Among Us", type: "mobile", desc: "Social deduction", img: "https://upload.wikimedia.org/wikipedia/en/9/9a/Among_Us_cover_art.jpg" },
-                { id: 33, name: "Candy Crush Saga", type: "mobile", desc: "Puzzle game", img: "https://upload.wikimedia.org/wikipedia/en/1/1a/Candy_Crush_Saga_Logo.png" },
-                { id: 34, name: "Pokémon GO", type: "mobile", desc: "AR adventure", img: "https://upload.wikimedia.org/wikipedia/en/4/44/Pok%C3%A9mon_GO_Logo.png" },
-                { id: 35, name: "Roblox", type: "mobile", desc: "Game creation", img: "https://upload.wikimedia.org/wikipedia/en/3/35/Roblox_Logo_2022.png" },
-                { id: 36, name: "Free Fire", type: "mobile", desc: "Battle royale", img: "https://upload.wikimedia.org/wikipedia/en/d/d1/Garena_Free_Fire_Logo.png" },
-                { id: 37, name: "Minecraft PE", type: "mobile", desc: "Pocket edition", img: "https://upload.wikimedia.org/wikipedia/en/5/5c/Minecraft_Pocket_Edition_Logo.png" },
-                { id: 38, name: "Asphalt 9: Legends", type: "mobile", desc: "Racing game", img: "https://upload.wikimedia.org/wikipedia/en/4/43/Asphalt_9_Logo.png" },
-                { id: 39, name: "Brawl Stars", type: "mobile", desc: "Fast-paced battles", img: "https://upload.wikimedia.org/wikipedia/en/2/28/Brawl_Stars_logo.png" },
-                { id: 40, name: "8 Ball Pool", type: "mobile", desc: "Multiplayer pool", img: "https://upload.wikimedia.org/wikipedia/en/2/2e/8_Ball_Pool_logo.png" },
-                { id: 41, name: "Hill Climb Racing", type: "mobile", desc: "Physics racing", img: "https://upload.wikimedia.org/wikipedia/en/c/c3/Hill_Climb_Racing_logo.png" },
-                { id: 42, name: "Temple Run 2", type: "mobile", desc: "Endless runner", img: "https://upload.wikimedia.org/wikipedia/en/8/83/Temple_Run_2_logo.png" },
-                { id: 43, name: "Fruit Ninja", type: "mobile", desc: "Arcade slicing", img: "https://upload.wikimedia.org/wikipedia/en/9/91/Fruit_Ninja_logo.png" },
-                { id: 44, name: "Angry Birds 2", type: "mobile", desc: "Physics puzzle", img: "https://upload.wikimedia.org/wikipedia/en/9/94/Angry_Birds_2_logo.png" },
-                { id: 45, name: "Plants vs. Zombies 2", type: "mobile", desc: "Tower defense", img: "https://upload.wikimedia.org/wikipedia/en/2/21/Plants_vs_Zombies_2_logo.png" },
-                { id: 46, name: "Monument Valley", type: "mobile", desc: "Puzzle adventure", img: "https://upload.wikimedia.org/wikipedia/en/1/16/Monument_Valley_logo.png" },
-                { id: 47, name: "Hay Day", type: "mobile", desc: "Farming simulation", img: "https://upload.wikimedia.org/wikipedia/en/5/57/Hay_Day_logo.png" },
-                { id: 48, name: "Ludo King", type: "mobile", desc: "Board game", img: "https://upload.wikimedia.org/wikipedia/en/8/8e/Ludo_King_logo.png" },
-                { id: 49, name: "Coin Master", type: "mobile", desc: "Slot village game", img: "https://upload.wikimedia.org/wikipedia/en/5/5b/Coin_Master_logo.png" },
-                { id: 50, name: "Homescapes", type: "mobile", desc: "Match-3 puzzle", img: "https://upload.wikimedia.org/wikipedia/en/4/4e/Homescapes_logo.png" }
+                { id: 26, name: "Subway Surfers", type: "mobile", desc: "Endless runner", img: "https://play-lh.googleusercontent.com/SO6Y3hc-8JiR8x1gvLtaWpYD9W2fGfQjB4j7pPp-U0VqC-NMwDvVW3jG0iHcK5cGw0U=w526-h296-rw" },
+                { id: 27, name: "PUBG Mobile", type: "mobile", desc: "Battle royale", img: "https://play-lh.googleusercontent.com/JRd05pyBH41qjgsJuWduRJpDeZG0Hnb0yjf2nWqO7VaGKL10-G5UIygxED-WNOc3pg=w526-h296-rw" },
+                { id: 28, name: "Call of Duty: Mobile", type: "mobile", desc: "Mobile FPS", img: "https://play-lh.googleusercontent.com/KS5XrBtlpZocM5pR2bK7a0PO49O9Qp0cVWQaP5JbluR8PZK_q4hGNvPDCzUvj0F9GQ=w526-h296-rw" },
+                { id: 29, name: "Genshin Impact", type: "mobile", desc: "Open-world RPG", img: "https://play-lh.googleusercontent.com/56edKRzqHc4f8j0kLBkH-euCdpQlR4NwD2X8_fIuPR1ghajfKfGtLkyyCuxfHcm2Q=w526-h296-rw" },
+                { id: 30, name: "Clash of Clans", type: "mobile", desc: "Strategy MMO", img: "https://play-lh.googleusercontent.com/LByrur1mTmPeNr0ljI-uAUcct1rzmTiv4N8WwBJxeylpoC1KjK3DPdJkr5pt3tgh7jY=w526-h296-rw" },
+                { id: 31, name: "Clash Royale", type: "mobile", desc: "Real-time strategy", img: "https://play-lh.googleusercontent.com/2cROzHZv3jpQW8qmRqN9GsoABM70eNhE0A8TqZb4HXcSSEBtZpqBLpQf5zIFyHdUw=w526-h296-rw" },
+                { id: 32, name: "Among Us", type: "mobile", desc: "Social deduction", img: "https://play-lh.googleusercontent.com/VHB9bVB8cTcnqwnu0nJqKYbiY6QfWert4Tw7KX8pOeCI-RL7Ds_YdWC6NrJcQ8p0rQ=w526-h296-rw" },
+                { id: 33, name: "Candy Crush Saga", type: "mobile", desc: "Puzzle game", img: "https://play-lh.googleusercontent.com/TLUeelx8wcpEzf3hoqeLxPs3ai1tdGtAZT2kNfqslQ2d7iK_8RkfMqNp8F2VJVGPA=w526-h296-rw" },
+                { id: 34, name: "Pokémon GO", type: "mobile", desc: "AR adventure", img: "https://play-lh.googleusercontent.com/SVQIX_fs8F7lVkXW0n3b3FzE92amAw1Q6bCHxQKhHGtvqRM8Y0cAtq5s1jRzE6pQBxY=w526-h296-rw" },
+                { id: 35, name: "Roblox", type: "mobile", desc: "Game creation", img: "https://play-lh.googleusercontent.com/WNWZaxi9RdJKe2GQM3vqXIAkk69mnIl4Cc8EyZcir2SKlVOxeUv9tZGfNTmNaLC717Ht=w526-h296-rw" },
+                { id: 36, name: "Free Fire", type: "mobile", desc: "Battle royale", img: "https://play-lh.googleusercontent.com/HNkyZTt_W0ZdeHxSjCPk4JwUY1XvoatCL61VQvQHwmGpZ0aqjXW6-PcE_aVU4KkFjQ=w526-h296-rw" },
+                { id: 37, name: "Minecraft PE", type: "mobile", desc: "Pocket edition", img: "https://play-lh.googleusercontent.com/VSwHQjcAttxsLE47RuS4PqpC4LT7lCoSjE7Hx5AW_yCxtDvcnsHHvm5CTuL5BPN-uR4=w526-h296-rw" },
+                { id: 38, name: "Asphalt 9: Legends", type: "mobile", desc: "Racing game", img: "https://play-lh.googleusercontent.com/_ft8Q0y8Tb69yAeB7tW6ZZvG5jQ9QFTby5xLhNb4kAFN65ZJmE5ZkCZdz6AecOQnfJo=w526-h296-rw" },
+                { id: 39, name: "Brawl Stars", type: "mobile", desc: "Fast-paced battles", img: "https://play-lh.googleusercontent.com/40cwtUqQvYiFpkP_8j8Sx7ZnXgE52FvlhKUEVfo_SgVvEw7lYQ3jDPcM2k63U1xxqA=w526-h296-rw" },
+                { id: 40, name: "8 Ball Pool", type: "mobile", desc: "Multiplayer pool", img: "https://play-lh.googleusercontent.com/8v9BVNVcOZPH4-0tF7gW4XehqH9OD1fN9qODoXTA9WRlIqFWsXqikm1tQ6rWnKZdTg=w526-h296-rw" },
+                { id: 41, name: "Hill Climb Racing", type: "mobile", desc: "Physics racing", img: "https://play-lh.googleusercontent.com/6AgVbJY7qwFw9bGPNjyr9M7KtNzE1Kewz6v8oev6tENt7sICfn-m6IfaE36kLr3rdA=w526-h296-rw" },
+                { id: 42, name: "Temple Run 2", type: "mobile", desc: "Endless runner", img: "https://play-lh.googleusercontent.com/GuLrWz8vPCnI0ZRzD_cW2k7pIX6slGMr9vCge4sLtmzTjSf5wXpK7uzjLveXUK1X6Q=w526-h296-rw" },
+                { id: 43, name: "Fruit Ninja", type: "mobile", desc: "Arcade slicing", img: "https://play-lh.googleusercontent.com/qd2dQnNk5zBp5RZ0plb1IuW4H4rmNae6Dl-HRw2V5nkrMst_q_ftUuyU7KIDlw-9nA=w526-h296-rw" },
+                { id: 44, name: "Angry Birds 2", type: "mobile", desc: "Physics puzzle", img: "https://play-lh.googleusercontent.com/YMVKj96TTkRCA3MkKBQh5DJR7b0p8_0OGRq0gJ3eUqVM-3jax63Qq7mq2YlG3f0DA=w526-h296-rw" },
+                { id: 45, name: "Plants vs. Zombies 2", type: "mobile", desc: "Tower defense", img: "https://play-lh.googleusercontent.com/WOZ0Rk3qo6lDqL8jymg2D69jQc07cEGRcLGGf5LXLn-2sSO1Z9r-0oR8qXp3l8qlw=w526-h296-rw" },
+                { id: 46, name: "Monument Valley", type: "mobile", desc: "Puzzle adventure", img: "https://play-lh.googleusercontent.com/8Ngcq2F7qG2JvU8n_7wqpkFyaErGcvY2XUrISF8CbjoT_cw5P8vcyRQmyXjJ9_44og=w526-h296-rw" },
+                { id: 47, name: "Hay Day", type: "mobile", desc: "Farming simulation", img: "https://play-lh.googleusercontent.com/ayVh_9L8YQH7MlLTSrwJ3Y5hV6RL6kK2D2RqutnLvx3xSdl44TbjeZZy5U39eCVJA=w526-h296-rw" },
+                { id: 48, name: "Ludo King", type: "mobile", desc: "Board game", img: "https://play-lh.googleusercontent.com/emzZqM8JSKzD7s8wPIj68CykvdgZtF5zT1Jbw4bvfuwJ3b-TNKePWjjs8nWkDNo7uc=w526-h296-rw" },
+                { id: 49, name: "Coin Master", type: "mobile", desc: "Slot village game", img: "https://play-lh.googleusercontent.com/vnSJ6lEaV2D-UJX_yZ_t9mqjR4f2K0-yHf9_U44Tj57x_4ewjk-xBwCng8Wh21Kk7Q=w526-h296-rw" },
+                { id: 50, name: "Homescapes", type: "mobile", desc: "Match-3 puzzle", img: "https://play-lh.googleusercontent.com/-m0G0Yht-gsO-iF2vjQ7FF8s5wcscDlgWM6c0S_QhXOH0YS8lfFjK6X5l5kL-K9B1Q=w526-h296-rw" }
             ]
         };
 
@@ -1165,26 +1174,10 @@
         const allGamesGrid = document.getElementById('allGamesGrid');
         const playModal = document.getElementById('playModal');
         const modalGameInfo = document.getElementById('modalGameInfo');
-        const timerDisplay = document.getElementById('timerDisplay');
-        const progressBar = document.getElementById('progressBar');
         const loadingStage = document.getElementById('loadingStage');
         const cancelBtn = document.getElementById('cancelBtn');
-        const notification = document.getElementById('notification');
+        const tryAgainBtn = document.getElementById('tryAgainBtn');
         const homeLink = document.getElementById('homeLink');
-
-        // Timer variables
-        let timerInterval;
-        let timeLeft = 60;
-        let currentGame = null;
-
-        // Loading stages for animation
-        const loadingStages = [
-            "Initializing game engine...",
-            "Loading game assets...",
-            "Connecting to servers...",
-            "Synchronizing player data...",
-            "Finalizing game setup..."
-        ];
 
         // Initialize the game lists
         function initializeGameLists() {
@@ -1220,7 +1213,7 @@
             gameDiv.dataset.id = game.id;
             
             gameDiv.innerHTML = `
-                <img src="${game.img}" alt="${game.name}" class="game-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                <img src="${game.img}" alt="${game.name}" class="game-thumb" onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60/667eea/ffffff?text=${game.name.substring(0,2)}'">
                 <div class="game-info">
                     <div class="game-title">${game.name}</div>
                     <div>${game.desc}</div>
@@ -1241,7 +1234,7 @@
             gameDiv.dataset.id = game.id;
             
             gameDiv.innerHTML = `
-                <img src="${game.img}" alt="${game.name}" class="game-card-img" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                <img src="${game.img}" alt="${game.name}" class="game-card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x140/667eea/ffffff?text=${game.name.substring(0,10)}'">
                 <div class="game-card-content">
                     <div class="game-card-title">${game.name}</div>
                     <div class="game-card-desc">${game.desc}</div>
@@ -1259,12 +1252,11 @@
         
         // Open play modal with game info
         function openPlayModal(game) {
-            currentGame = game;
             playModal.style.display = 'flex';
             
             // Update modal content
             modalGameInfo.innerHTML = `
-                <img src="${game.img}" alt="${game.name}" class="modal-game-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                <img src="${game.img}" alt="${game.name}" class="modal-game-thumb" onerror="this.onerror=null; this.src='https://via.placeholder.com/100x100/667eea/ffffff?text=${game.name.substring(0,5)}'">
                 <div class="modal-game-details">
                     <div class="modal-game-title">${game.name}</div>
                     <div style="margin-bottom: 10px;">${game.desc}</div>
@@ -1272,69 +1264,31 @@
                 </div>
             `;
             
-            // Reset timer and progress
-            timeLeft = 60;
-            timerDisplay.textContent = '01:00';
-            progressBar.style.width = '0%';
-            
-            // Start the loading animation
+            // Start loading animation
             startLoadingAnimation();
         }
         
-        // Start the loading animation and timer
+        // Start the loading animation
         function startLoadingAnimation() {
-            clearInterval(timerInterval);
-            
             let stageIndex = 0;
-            loadingStage.textContent = loadingStages[stageIndex];
+            const loadingMessages = [
+                "Connecting to game servers...",
+                "Loading game assets...",
+                "Authenticating player...",
+                "Almost ready..."
+            ];
             
-            // Update loading stage every 10 seconds
-            const stageInterval = setInterval(() => {
-                stageIndex = (stageIndex + 1) % loadingStages.length;
-                loadingStage.textContent = loadingStages[stageIndex];
-            }, 10000);
+            loadingStage.textContent = loadingMessages[stageIndex];
             
-            // Start the countdown timer
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                
-                // Update timer display
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                // Update progress bar
-                const progress = ((60 - timeLeft) / 60) * 100;
-                progressBar.style.width = `${progress}%`;
-                
-                // When timer reaches 0
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    clearInterval(stageInterval);
-                    
-                    // Close modal after a brief delay
-                    setTimeout(() => {
-                        playModal.style.display = 'none';
-                        
-                        // Show notification
-                        notification.style.display = 'block';
-                        
-                        // Hide notification after 5 seconds
-                        setTimeout(() => {
-                            notification.style.display = 'none';
-                            
-                            // Redirect to homepage after notification disappears
-                            setTimeout(() => {
-                                window.location.href = '#';
-                                window.scrollTo(0, 0);
-                            }, 500);
-                        }, 5000);
-                    }, 1000);
-                }
-            }, 1000);
+            // Update loading message every 2 seconds
+            const messageInterval = setInterval(() => {
+                stageIndex = (stageIndex + 1) % loadingMessages.length;
+                loadingStage.textContent = loadingMessages[stageIndex];
+            }, 2000);
             
             // Store interval ID for cleanup
-            cancelBtn.dataset.stageInterval = stageInterval;
+            cancelBtn.dataset.messageInterval = messageInterval;
+            tryAgainBtn.dataset.messageInterval = messageInterval;
         }
         
         // Initialize the page
@@ -1364,16 +1318,21 @@
             
             // Cancel button functionality
             cancelBtn.addEventListener('click', () => {
-                clearInterval(timerInterval);
-                clearInterval(cancelBtn.dataset.stageInterval);
+                clearInterval(cancelBtn.dataset.messageInterval);
                 playModal.style.display = 'none';
+            });
+            
+            // Try Again button functionality
+            tryAgainBtn.addEventListener('click', () => {
+                clearInterval(tryAgainBtn.dataset.messageInterval);
+                // Show loading animation again
+                startLoadingAnimation();
             });
             
             // Close modal when clicking outside
             playModal.addEventListener('click', (e) => {
                 if (e.target === playModal) {
-                    clearInterval(timerInterval);
-                    clearInterval(cancelBtn.dataset.stageInterval);
+                    clearInterval(cancelBtn.dataset.messageInterval);
                     playModal.style.display = 'none';
                 }
             });
@@ -1421,9 +1380,11 @@
                 });
             });
             
-            console.log('FluxHub Gaming Platform Loaded Successfully!');
-            console.log('Using REAL game icons from Wikipedia');
-            console.log(`Total Games: ${games.pc.length + games.mobile.length} (${games.pc.length} PC, ${games.mobile.length} Mobile)`);
+            console.log('✅ FluxHub Gaming Platform Loaded Successfully!');
+            console.log('✅ TIMER REMOVED as requested');
+            console.log('✅ Using REAL game icons from reliable sources');
+            console.log('✅ All images have fallback placeholders');
+            console.log(`✅ Total Games: ${games.pc.length + games.mobile.length} (${games.pc.length} PC, ${games.mobile.length} Mobile)`);
         });
     </script>
 </body>
