@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FluxHub - Free Online Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --secondary: #4169e1;
+            --accent: #ff4757;
+            --bg-light: #f8f9fa;
+            --bg-dark: #1a1a2e;
+            --text-dark: #2d3436;
+            --text-light: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #e9ecef;
+            --success: #00b894;
+            --pc-color: #4169e1;
+            --mobile-color: #20b2aa;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - Poki.com Style */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-left: 40px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 16px;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 10px 15px 10px 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            width: 220px;
+            font-size: 14px;
+            background-color: var(--bg-light);
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            width: 280px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 15px;
+        }
+
+        .btn-login {
+            background-color: transparent;
+            color: var(--text-dark);
+        }
+
+        .btn-login:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-signup {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Hero Section - Poki.com Style */
+        .hero {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(65, 105, 225, 0.05) 100%);
+            padding: 60px 0 40px;
+            margin-bottom: 40px;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        .featured-games {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .featured-game {
+            width: 180px;
+            height: 240px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .featured-game:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .featured-game img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-game-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 15px;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .category-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .category-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .category-header {
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .category-pc .category-icon {
+            background-color: var(--pc-color);
+        }
+
+        .category-mobile .category-icon {
+            background-color: var(--mobile-color);
+        }
+
+        .category-title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .category-count {
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .category-games {
+            padding: 20px;
+        }
+
+        .game-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .game-item:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .game-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid #f1f3f4;
+        }
+
+        .game-info {
+            flex: 1;
+        }
+
+        .game-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .game-type {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: inline-block;
+            padding: 3px 10px;
+            background: #f1f3f4;
+            border-radius: 12px;
+        }
+
+        .pc-type {
+            background: rgba(65, 105, 225, 0.1);
+            color: var(--pc-color);
+        }
+
+        .mobile-type {
+            background: rgba(32, 178, 170, 0.1);
+            color: var(--mobile-color);
+        }
+
+        .play-btn {
+            padding: 8px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .play-btn:hover {
+            background-color: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        /* All Games Grid */
+        .all-games {
+            padding: 40px 0;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .game-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .game-card-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+
+        .game-card-content {
+            padding: 20px;
+        }
+
+        .game-card-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .game-card-desc {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .game-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Play Modal */
+        .play-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalAppear 0.3s ease-out;
+        }
+
+        @keyframes modalAppear {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            margin-bottom: 30px;
+        }
+
+        .modal-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .modal-game-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .modal-game-thumb {
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: var(--shadow);
+        }
+
+        .modal-game-details {
+            text-align: left;
+        }
+
+        .modal-game-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .modal-game-type {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: rgba(138, 43, 226, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .loading-container {
+            margin: 40px 0;
+        }
+
+        .timer-display {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 30px 0;
+            color: var(--primary);
+            font-family: 'Inter', monospace;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 12px;
+            background-color: var(--border-color);
+            border-radius: 6px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 6px;
+            transition: width 1s linear;
+        }
+
+        .loading-text {
+            font-size: 18px;
+            color: #6c757d;
+            margin: 20px 0;
+        }
+
+        .loading-animation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .loading-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+        .loading-dot:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .modal-actions {
+            margin-top: 30px;
+        }
+
+        .btn-cancel {
+            padding: 12px 30px;
+            background-color: #f8f9fa;
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-cancel:hover {
+            background-color: #e9ecef;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            max-width: 350px;
+            display: none;
+            z-index: 3000;
+            animation: slideIn 0.5s ease-out;
+            border-left: 5px solid var(--accent);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .notification-icon {
+            color: var(--accent);
+            font-size: 24px;
+        }
+
+        .notification-title {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #a0a0c0;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 15px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0a0c0;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .category-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .search-input:focus {
+                width: 220px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .featured-games {
+                flex-wrap: wrap;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .search-box {
+                order: 3;
+                width: 100%;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .search-input:focus {
+                width: 100%;
+            }
+            
+            .featured-game {
+                width: 150px;
+                height: 200px;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+            
+            .timer-display {
+                font-size: 36px;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .featured-games {
+                gap: 10px;
+            }
+            
+            .featured-game {
+                width: 120px;
+                height: 160px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .modal-game-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo" id="homeLink">
+                    <div class="logo-icon">F</div>
+                    <div class="logo-text">FluxHub</div>
+                </a>
+                
+                <nav class="nav-menu">
+                    <a href="#" class="nav-link active">Home</a>
+                    <a href="#" class="nav-link">PC Games</a>
+                    <a href="#" class="nav-link">Mobile Games</a>
+                    <a href="#" class="nav-link">New Games</a>
+                    <a href="#" class="nav-link">Trending</a>
+                    <a href="#" class="nav-link">Best Games</a>
+                </nav>
+                
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search games...">
+                    </div>
+                    
+                    <div class="user-menu">
+                        <button class="btn btn-login">Log In</button>
+                        <button class="btn btn-signup">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Play Free Online Games</h1>
+                <p>FluxHub offers the best collection of free PC and mobile games. No downloads, no installs - play instantly in your browser!</p>
+                
+                <div class="featured-games">
+                    <div class="featured-game">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA 5">
+                        <div class="featured-game-overlay">
+                            <div style="font-weight: 700; font-size: 18px;">GTA 5</div>
+                            <div style="font-size: 14px;">PC Game</div>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-game">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/5/5d/Subway_Surfers_icon.png" alt="Subway Surfers">
+                        <div class="featured-game-overlay">
+                            <div style="font-weight: 700; font-size: 18px;">Subway Surfers</div>
+                            <div style="font-size: 14px;">Mobile Game</div>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-game">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/2/2c/Fortnite_%28logo%29.png" alt="Fortnite">
+                        <div class="featured-game-overlay">
+                            <div style="font-weight: 700; font-size: 18px;">Fortnite</div>
+                            <div style="font-size: 14px;">PC Game</div>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-game">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/3/3d/PlayerUnknown%27s_Battlegrounds_Steam_Logo.jpg" alt="PUBG">
+                        <div class="featured-game-overlay">
+                            <div style="font-weight: 700; font-size: 18px;">PUBG</div>
+                            <div style="font-size: 14px;">PC Game</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- PC Games Category -->
+        <section class="categories">
+            <div class="section-header">
+                <h2 class="section-title">PC Games</h2>
+                <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="category-cards">
+                <div class="category-card category-pc">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <div>
+                            <div class="category-title">PC Games</div>
+                            <div class="category-count">25 premium games</div>
+                        </div>
+                    </div>
+                    
+                    <div class="category-games" id="pcGamesList">
+                        <!-- PC games will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mobile Games Category -->
+        <section class="categories">
+            <div class="section-header">
+                <h2 class="section-title">Mobile Games</h2>
+                <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="category-cards">
+                <div class="category-card category-mobile">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div>
+                            <div class="category-title">Mobile Games</div>
+                            <div class="category-count">25 premium games</div>
+                        </div>
+                    </div>
+                    
+                    <div class="category-games" id="mobileGamesList">
+                        <!-- Mobile games will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Games Grid -->
+        <section class="all-games">
+            <div class="section-header">
+                <h2 class="section-title">All Games</h2>
+                <a href="#" class="view-all">View All 50 Games <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="games-grid" id="allGamesGrid">
+                <!-- All games will be dynamically added here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Play Modal -->
+    <div class="play-modal" id="playModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Launching Game</h2>
+                <p>Please wait while we prepare your game...</p>
+            </div>
+            
+            <div class="modal-game-info" id="modalGameInfo">
+                <!-- Game info will be dynamically added here -->
+            </div>
+            
+            <div class="loading-container">
+                <div class="loading-text" id="loadingStage">Initializing game engine...</div>
+                
+                <div class="timer-display" id="timerDisplay">01:00</div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                
+                <div class="loading-animation">
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn-cancel" id="cancelBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-header">
+            <i class="fas fa-exclamation-triangle notification-icon"></i>
+            <div class="notification-title">Server Busy</div>
+        </div>
+        <p>Our servers are currently at full capacity. Please try again after some time.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>FluxHub</h3>
+                    <p style="color: #a0a0c0; margin-bottom: 20px;">The best free online gaming platform with hundreds of games to play instantly in your browser.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Games</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">PC Games</a></li>
+                        <li><a href="#">Mobile Games</a></li>
+                        <li><a href="#">New Games</a></li>
+                        <li><a href="#">Trending Games</a></li>
+                        <li><a href="#">Best Games</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Server Status</a></li>
+                        <li><a href="#">Report a Problem</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Content Policy</a></li>
+                        <li><a href="#">Copyright</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                &copy; 2023 FluxHub. All rights reserved. All game titles and images are property of their respective owners.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Game Data with REAL Game Icons - 50 Games (25 PC, 25 Mobile)
+        const games = {
+            pc: [
+                { id: 1, name: "Grand Theft Auto V", type: "pc", desc: "Open-world action adventure", img: "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" },
+                { id: 2, name: "Cyberpunk 2077", type: "pc", desc: "Futuristic RPG", img: "https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg" },
+                { id: 3, name: "The Witcher 3", type: "pc", desc: "Fantasy adventure RPG", img: "https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg" },
+                { id: 4, name: "Elden Ring", type: "pc", desc: "Action RPG", img: "https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg" },
+                { id: 5, name: "Red Dead Redemption 2", type: "pc", desc: "Western adventure", img: "https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg" },
+                { id: 6, name: "Fortnite", type: "pc", desc: "Battle Royale", img: "https://upload.wikimedia.org/wikipedia/en/2/2c/Fortnite_%28logo%29.png" },
+                { id: 7, name: "Call of Duty: Warzone", type: "pc", desc: "Military shooter", img: "https://upload.wikimedia.org/wikipedia/en/0/04/Call_of_Duty_Warzone_Logo.png" },
+                { id: 8, name: "Minecraft", type: "pc", desc: "Sandbox creativity", img: "https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png" },
+                { id: 9, name: "Valorant", type: "pc", desc: "Tactical FPS", img: "https://upload.wikimedia.org/wikipedia/en/f/f8/Valorant_logo_-_pink_color_version.svg" },
+                { id: 10, name: "Apex Legends", type: "pc", desc: "Hero battle royale", img: "https://upload.wikimedia.org/wikipedia/en/d/db/Apex_legends_cover.jpg" },
+                { id: 11, name: "Counter-Strike 2", type: "pc", desc: "Competitive shooter", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Counter-Strike_2_logo.svg/1200px-Counter-Strike_2_logo.svg.png" },
+                { id: 12, name: "FIFA 23", type: "pc", desc: "Football simulation", img: "https://upload.wikimedia.org/wikipedia/en/6/67/FIFA_23_Standard_Edition.jpg" },
+                { id: 13, name: "Destiny 2", type: "pc", desc: "MMO FPS", img: "https://upload.wikimedia.org/wikipedia/en/0/05/Destiny_2_%28artwork%29.jpg" },
+                { id: 14, name: "Rocket League", type: "pc", desc: "Soccer with cars", img: "https://upload.wikimedia.org/wikipedia/en/a/a0/Rocket_League_coverart.jpg" },
+                { id: 15, name: "Rainbow Six Siege", type: "pc", desc: "Tactical shooter", img: "https://upload.wikimedia.org/wikipedia/en/3/33/Rainbow_Six_Siege_cover_art.jpg" },
+                { id: 16, name: "Overwatch 2", type: "pc", desc: "Team-based shooter", img: "https://upload.wikimedia.org/wikipedia/en/3/33/Overwatch_2_Logo.jpg" },
+                { id: 17, name: "League of Legends", type: "pc", desc: "MOBA", img: "https://upload.wikimedia.org/wikipedia/en/1/12/League_of_Legends_Logo.png" },
+                { id: 18, name: "Dota 2", type: "pc", desc: "Competitive MOBA", img: "https://upload.wikimedia.org/wikipedia/en/1/15/Dota_2_Logo.png" },
+                { id: 19, name: "PUBG: Battlegrounds", type: "pc", desc: "Battle royale", img: "https://upload.wikimedia.org/wikipedia/en/3/3d/PlayerUnknown%27s_Battlegrounds_Steam_Logo.jpg" },
+                { id: 20, name: "Hogwarts Legacy", type: "pc", desc: "Harry Potter RPG", img: "https://upload.wikimedia.org/wikipedia/en/7/7d/Hogwarts-Legacy-cover.jpg" },
+                { id: 21, name: "God of War Ragnarök", type: "pc", desc: "Mythological action", img: "https://upload.wikimedia.org/wikipedia/en/e/ee/God_of_War_Ragnar%C3%B6k_cover.jpg" },
+                { id: 22, name: "Far Cry 6", type: "pc", desc: "Open-world FPS", img: "https://upload.wikimedia.org/wikipedia/en/6/6e/Far_Cry_6_Key_Art.jpg" },
+                { id: 23, name: "Assassin's Creed Valhalla", type: "pc", desc: "Viking adventure", img: "https://upload.wikimedia.org/wikipedia/en/f/ff/Assassin%27s_Creed_Valhalla_cover.jpg" },
+                { id: 24, name: "Resident Evil 4 Remake", type: "pc", desc: "Survival horror", img: "https://upload.wikimedia.org/wikipedia/en/6/6c/Resident_Evil_4_remake_cover.jpg" },
+                { id: 25, name: "Starfield", type: "pc", desc: "Space RPG", img: "https://upload.wikimedia.org/wikipedia/en/3/30/Starfield_cover.jpg" }
+            ],
+            mobile: [
+                { id: 26, name: "Subway Surfers", type: "mobile", desc: "Endless runner", img: "https://upload.wikimedia.org/wikipedia/en/5/5d/Subway_Surfers_icon.png" },
+                { id: 27, name: "PUBG Mobile", type: "mobile", desc: "Battle royale", img: "https://upload.wikimedia.org/wikipedia/en/3/3a/PUBG_Mobile_Steam_Logo.jpg" },
+                { id: 28, name: "Call of Duty: Mobile", type: "mobile", desc: "Mobile FPS", img: "https://upload.wikimedia.org/wikipedia/en/9/9a/Call_of_Duty_Mobile_logo.png" },
+                { id: 29, name: "Genshin Impact", type: "mobile", desc: "Open-world RPG", img: "https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg" },
+                { id: 30, name: "Clash of Clans", type: "mobile", desc: "Strategy MMO", img: "https://upload.wikimedia.org/wikipedia/en/8/8a/Clash_of_Clans_logo.png" },
+                { id: 31, name: "Clash Royale", type: "mobile", desc: "Real-time strategy", img: "https://upload.wikimedia.org/wikipedia/en/0/09/Clash_Royale_logo.png" },
+                { id: 32, name: "Among Us", type: "mobile", desc: "Social deduction", img: "https://upload.wikimedia.org/wikipedia/en/9/9a/Among_Us_cover_art.jpg" },
+                { id: 33, name: "Candy Crush Saga", type: "mobile", desc: "Puzzle game", img: "https://upload.wikimedia.org/wikipedia/en/1/1a/Candy_Crush_Saga_Logo.png" },
+                { id: 34, name: "Pokémon GO", type: "mobile", desc: "AR adventure", img: "https://upload.wikimedia.org/wikipedia/en/4/44/Pok%C3%A9mon_GO_Logo.png" },
+                { id: 35, name: "Roblox", type: "mobile", desc: "Game creation", img: "https://upload.wikimedia.org/wikipedia/en/3/35/Roblox_Logo_2022.png" },
+                { id: 36, name: "Free Fire", type: "mobile", desc: "Battle royale", img: "https://upload.wikimedia.org/wikipedia/en/d/d1/Garena_Free_Fire_Logo.png" },
+                { id: 37, name: "Minecraft PE", type: "mobile", desc: "Pocket edition", img: "https://upload.wikimedia.org/wikipedia/en/5/5c/Minecraft_Pocket_Edition_Logo.png" },
+                { id: 38, name: "Asphalt 9: Legends", type: "mobile", desc: "Racing game", img: "https://upload.wikimedia.org/wikipedia/en/4/43/Asphalt_9_Logo.png" },
+                { id: 39, name: "Brawl Stars", type: "mobile", desc: "Fast-paced battles", img: "https://upload.wikimedia.org/wikipedia/en/2/28/Brawl_Stars_logo.png" },
+                { id: 40, name: "8 Ball Pool", type: "mobile", desc: "Multiplayer pool", img: "https://upload.wikimedia.org/wikipedia/en/2/2e/8_Ball_Pool_logo.png" },
+                { id: 41, name: "Hill Climb Racing", type: "mobile", desc: "Physics racing", img: "https://upload.wikimedia.org/wikipedia/en/c/c3/Hill_Climb_Racing_logo.png" },
+                { id: 42, name: "Temple Run 2", type: "mobile", desc: "Endless runner", img: "https://upload.wikimedia.org/wikipedia/en/8/83/Temple_Run_2_logo.png" },
+                { id: 43, name: "Fruit Ninja", type: "mobile", desc: "Arcade slicing", img: "https://upload.wikimedia.org/wikipedia/en/9/91/Fruit_Ninja_logo.png" },
+                { id: 44, name: "Angry Birds 2", type: "mobile", desc: "Physics puzzle", img: "https://upload.wikimedia.org/wikipedia/en/9/94/Angry_Birds_2_logo.png" },
+                { id: 45, name: "Plants vs. Zombies 2", type: "mobile", desc: "Tower defense", img: "https://upload.wikimedia.org/wikipedia/en/2/21/Plants_vs_Zombies_2_logo.png" },
+                { id: 46, name: "Monument Valley", type: "mobile", desc: "Puzzle adventure", img: "https://upload.wikimedia.org/wikipedia/en/1/16/Monument_Valley_logo.png" },
+                { id: 47, name: "Hay Day", type: "mobile", desc: "Farming simulation", img: "https://upload.wikimedia.org/wikipedia/en/5/57/Hay_Day_logo.png" },
+                { id: 48, name: "Ludo King", type: "mobile", desc: "Board game", img: "https://upload.wikimedia.org/wikipedia/en/8/8e/Ludo_King_logo.png" },
+                { id: 49, name: "Coin Master", type: "mobile", desc: "Slot village game", img: "https://upload.wikimedia.org/wikipedia/en/5/5b/Coin_Master_logo.png" },
+                { id: 50, name: "Homescapes", type: "mobile", desc: "Match-3 puzzle", img: "https://upload.wikimedia.org/wikipedia/en/4/4e/Homescapes_logo.png" }
+            ]
+        };
+
+        // DOM Elements
+        const pcGamesList = document.getElementById('pcGamesList');
+        const mobileGamesList = document.getElementById('mobileGamesList');
+        const allGamesGrid = document.getElementById('allGamesGrid');
+        const playModal = document.getElementById('playModal');
+        const modalGameInfo = document.getElementById('modalGameInfo');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const progressBar = document.getElementById('progressBar');
+        const loadingStage = document.getElementById('loadingStage');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const notification = document.getElementById('notification');
+        const homeLink = document.getElementById('homeLink');
+
+        // Timer variables
+        let timerInterval;
+        let timeLeft = 60;
+        let currentGame = null;
+
+        // Loading stages for animation
+        const loadingStages = [
+            "Initializing game engine...",
+            "Loading game assets...",
+            "Connecting to servers...",
+            "Synchronizing player data...",
+            "Finalizing game setup..."
+        ];
+
+        // Initialize the game lists
+        function initializeGameLists() {
+            // Clear existing content
+            pcGamesList.innerHTML = '';
+            mobileGamesList.innerHTML = '';
+            allGamesGrid.innerHTML = '';
+            
+            // Add PC games to category list
+            games.pc.slice(0, 5).forEach(game => {
+                const gameElement = createGameListItem(game);
+                pcGamesList.appendChild(gameElement);
+            });
+            
+            // Add mobile games to category list
+            games.mobile.slice(0, 5).forEach(game => {
+                const gameElement = createGameListItem(game);
+                mobileGamesList.appendChild(gameElement);
+            });
+            
+            // Add all games to grid (showing 20 games)
+            const allGames = [...games.pc, ...games.mobile];
+            allGames.slice(0, 20).forEach(game => {
+                const gameElement = createGameCard(game);
+                allGamesGrid.appendChild(gameElement);
+            });
+        }
+        
+        // Create game list item for category
+        function createGameListItem(game) {
+            const gameDiv = document.createElement('div');
+            gameDiv.className = 'game-item';
+            gameDiv.dataset.id = game.id;
+            
+            gameDiv.innerHTML = `
+                <img src="${game.img}" alt="${game.name}" class="game-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                <div class="game-info">
+                    <div class="game-title">${game.name}</div>
+                    <div>${game.desc}</div>
+                    <div class="game-type ${game.type}-type">${game.type.toUpperCase()}</div>
+                </div>
+                <button class="play-btn" data-id="${game.id}">
+                    <i class="fas fa-play"></i> Play
+                </button>
+            `;
+            
+            return gameDiv;
+        }
+        
+        // Create game card for grid
+        function createGameCard(game) {
+            const gameDiv = document.createElement('div');
+            gameDiv.className = 'game-card';
+            gameDiv.dataset.id = game.id;
+            
+            gameDiv.innerHTML = `
+                <img src="${game.img}" alt="${game.name}" class="game-card-img" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                <div class="game-card-content">
+                    <div class="game-card-title">${game.name}</div>
+                    <div class="game-card-desc">${game.desc}</div>
+                    <div class="game-card-footer">
+                        <span class="game-type ${game.type}-type">${game.type.toUpperCase()}</span>
+                        <button class="play-btn" data-id="${game.id}" style="padding: 6px 15px;">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return gameDiv;
+        }
+        
+        // Open play modal with game info
+        function openPlayModal(game) {
+            currentGame = game;
+            playModal.style.display = 'flex';
+            
+            // Update modal content
+            modalGameInfo.innerHTML = `
+                <img src="${game.img}" alt="${game.name}" class="modal-game-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                <div class="modal-game-details">
+                    <div class="modal-game-title">${game.name}</div>
+                    <div style="margin-bottom: 10px;">${game.desc}</div>
+                    <span class="modal-game-type">${game.type.toUpperCase()}</span>
+                </div>
+            `;
+            
+            // Reset timer and progress
+            timeLeft = 60;
+            timerDisplay.textContent = '01:00';
+            progressBar.style.width = '0%';
+            
+            // Start the loading animation
+            startLoadingAnimation();
+        }
+        
+        // Start the loading animation and timer
+        function startLoadingAnimation() {
+            clearInterval(timerInterval);
+            
+            let stageIndex = 0;
+            loadingStage.textContent = loadingStages[stageIndex];
+            
+            // Update loading stage every 10 seconds
+            const stageInterval = setInterval(() => {
+                stageIndex = (stageIndex + 1) % loadingStages.length;
+                loadingStage.textContent = loadingStages[stageIndex];
+            }, 10000);
+            
+            // Start the countdown timer
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                
+                // Update timer display
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Update progress bar
+                const progress = ((60 - timeLeft) / 60) * 100;
+                progressBar.style.width = `${progress}%`;
+                
+                // When timer reaches 0
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    clearInterval(stageInterval);
+                    
+                    // Close modal after a brief delay
+                    setTimeout(() => {
+                        playModal.style.display = 'none';
+                        
+                        // Show notification
+                        notification.style.display = 'block';
+                        
+                        // Hide notification after 5 seconds
+                        setTimeout(() => {
+                            notification.style.display = 'none';
+                            
+                            // Redirect to homepage after notification disappears
+                            setTimeout(() => {
+                                window.location.href = '#';
+                                window.scrollTo(0, 0);
+                            }, 500);
+                        }, 5000);
+                    }, 1000);
+                }
+            }, 1000);
+            
+            // Store interval ID for cleanup
+            cancelBtn.dataset.stageInterval = stageInterval;
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize game lists
+            initializeGameLists();
+            
+            // Add click event listeners to play buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.play-btn')) {
+                    const button = e.target.closest('.play-btn');
+                    const gameId = parseInt(button.dataset.id);
+                    
+                    // Find the game
+                    let game = null;
+                    if (gameId <= 25) {
+                        game = games.pc.find(g => g.id === gameId);
+                    } else {
+                        game = games.mobile.find(g => g.id === gameId);
+                    }
+                    
+                    if (game) {
+                        openPlayModal(game);
+                    }
+                }
+            });
+            
+            // Cancel button functionality
+            cancelBtn.addEventListener('click', () => {
+                clearInterval(timerInterval);
+                clearInterval(cancelBtn.dataset.stageInterval);
+                playModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            playModal.addEventListener('click', (e) => {
+                if (e.target === playModal) {
+                    clearInterval(timerInterval);
+                    clearInterval(cancelBtn.dataset.stageInterval);
+                    playModal.style.display = 'none';
+                }
+            });
+            
+            // Home link functionality
+            homeLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo(0, 0);
+            });
+            
+            // Login/Signup button functionality
+            document.querySelector('.btn-login').addEventListener('click', () => {
+                alert('Login feature would open here in a full implementation.');
+            });
+            
+            document.querySelector('.btn-signup').addEventListener('click', () => {
+                alert('Signup feature would open here in a full implementation.');
+            });
+            
+            // Search functionality
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    alert(`Searching for: ${searchInput.value}`);
+                    searchInput.value = '';
+                }
+            });
+            
+            // Nav links functionality
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (!link.classList.contains('active')) {
+                        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // View All links functionality
+            document.querySelectorAll('.view-all').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('In a full implementation, this would show all games.');
+                });
+            });
+            
+            console.log('FluxHub Gaming Platform Loaded Successfully!');
+            console.log('Using REAL game icons from Wikipedia');
+            console.log(`Total Games: ${games.pc.length + games.mobile.length} (${games.pc.length} PC, ${games.mobile.length} Mobile)`);
+        });
+    </script>
+</body>
+</html>
