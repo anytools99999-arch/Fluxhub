@@ -156,6 +156,7 @@
             top: 50%;
             transform: translateY(-50%);
             color: #6c757d;
+            cursor: pointer;
         }
 
         .user-menu {
@@ -191,6 +192,70 @@
         .btn-signup:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow);
+        }
+
+        /* Search Results */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-hover);
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1001;
+            margin-top: 10px;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-result-item:hover {
+            background-color: rgba(138, 43, 226, 0.05);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .search-result-info {
+            flex: 1;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+
+        .search-result-type {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .no-results {
+            padding: 30px 20px;
+            text-align: center;
+            color: #6c757d;
         }
 
         /* Hero Section - Poki.com Style */
@@ -650,44 +715,6 @@
             background-color: var(--secondary);
         }
 
-        /* Notification */
-        .notification {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            padding: 20px;
-            max-width: 350px;
-            display: none;
-            z-index: 3000;
-            animation: slideIn 0.5s ease-out;
-            border-left: 5px solid var(--accent);
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .notification-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-
-        .notification-icon {
-            color: var(--accent);
-            font-size: 24px;
-        }
-
-        .notification-title {
-            font-weight: 700;
-            font-size: 18px;
-        }
-
         /* Footer */
         footer {
             background-color: var(--bg-dark);
@@ -894,8 +921,11 @@
                 
                 <div class="header-actions">
                     <div class="search-box">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" placeholder="Search games...">
+                        <i class="fas fa-search search-icon" id="searchButton"></i>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search games...">
+                        <div class="search-results" id="searchResults">
+                            <!-- Search results will appear here -->
+                        </div>
                     </div>
                     
                     <div class="user-menu">
@@ -1178,6 +1208,12 @@
         const cancelBtn = document.getElementById('cancelBtn');
         const tryAgainBtn = document.getElementById('tryAgainBtn');
         const homeLink = document.getElementById('homeLink');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const searchButton = document.getElementById('searchButton');
+
+        // Store all games in one array
+        const allGames = [...games.pc, ...games.mobile];
 
         // Initialize the game lists
         function initializeGameLists() {
@@ -1199,7 +1235,6 @@
             });
             
             // Add all games to grid (showing 20 games)
-            const allGames = [...games.pc, ...games.mobile];
             allGames.slice(0, 20).forEach(game => {
                 const gameElement = createGameCard(game);
                 allGamesGrid.appendChild(gameElement);
@@ -1250,6 +1285,65 @@
             return gameDiv;
         }
         
+        // Search functionality
+        function performSearch(searchTerm) {
+            const term = searchTerm.toLowerCase().trim();
+            
+            // Clear previous results
+            searchResults.innerHTML = '';
+            
+            if (term.length === 0) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            
+            // Filter games based on search term
+            const filteredGames = allGames.filter(game => 
+                game.name.toLowerCase().includes(term) || 
+                game.desc.toLowerCase().includes(term) ||
+                game.type.toLowerCase().includes(term)
+            );
+            
+            if (filteredGames.length === 0) {
+                // Show no results message
+                searchResults.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search" style="font-size: 24px; margin-bottom: 10px;"></i>
+                        <p>No games found for "${searchTerm}"</p>
+                        <p style="font-size: 14px; margin-top: 10px;">Try searching for "GTA", "Minecraft", "Fortnite", etc.</p>
+                    </div>
+                `;
+                searchResults.style.display = 'block';
+                return;
+            }
+            
+            // Limit to 10 results
+            const limitedResults = filteredGames.slice(0, 10);
+            
+            // Create result items
+            limitedResults.forEach(game => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'search-result-item';
+                resultItem.dataset.id = game.id;
+                
+                resultItem.innerHTML = `
+                    <img src="${game.img}" alt="${game.name}" class="search-result-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/50x50/667eea/ffffff?text=${game.name.substring(0,2)}'">
+                    <div class="search-result-info">
+                        <div class="search-result-title">${game.name}</div>
+                        <div class="search-result-type">${game.type.toUpperCase()}</div>
+                    </div>
+                    <button class="play-btn" data-id="${game.id}" style="padding: 5px 12px; font-size: 12px;">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                `;
+                
+                searchResults.appendChild(resultItem);
+            });
+            
+            // Show results
+            searchResults.style.display = 'block';
+        }
+        
         // Open play modal with game info
         function openPlayModal(game) {
             playModal.style.display = 'flex';
@@ -1291,6 +1385,11 @@
             tryAgainBtn.dataset.messageInterval = messageInterval;
         }
         
+        // Find game by ID
+        function findGameById(gameId) {
+            return allGames.find(game => game.id === gameId);
+        }
+        
         // Initialize the page
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize game lists
@@ -1298,21 +1397,47 @@
             
             // Add click event listeners to play buttons
             document.addEventListener('click', function(e) {
+                // Handle play buttons in search results
                 if (e.target.closest('.play-btn')) {
                     const button = e.target.closest('.play-btn');
                     const gameId = parseInt(button.dataset.id);
                     
-                    // Find the game
-                    let game = null;
-                    if (gameId <= 25) {
-                        game = games.pc.find(g => g.id === gameId);
-                    } else {
-                        game = games.mobile.find(g => g.id === gameId);
-                    }
-                    
+                    const game = findGameById(gameId);
                     if (game) {
                         openPlayModal(game);
+                        searchResults.style.display = 'none';
+                        searchInput.value = '';
                     }
+                }
+                
+                // Handle search result item clicks (entire row)
+                if (e.target.closest('.search-result-item')) {
+                    const item = e.target.closest('.search-result-item');
+                    const gameId = parseInt(item.dataset.id);
+                    
+                    const game = findGameById(gameId);
+                    if (game) {
+                        openPlayModal(game);
+                        searchResults.style.display = 'none';
+                        searchInput.value = '';
+                    }
+                }
+            });
+            
+            // Search input functionality
+            searchInput.addEventListener('input', function() {
+                performSearch(this.value);
+            });
+            
+            // Search button functionality
+            searchButton.addEventListener('click', function() {
+                performSearch(searchInput.value);
+            });
+            
+            // Hide search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.search-box')) {
+                    searchResults.style.display = 'none';
                 }
             });
             
@@ -1352,15 +1477,6 @@
                 alert('Signup feature would open here in a full implementation.');
             });
             
-            // Search functionality
-            const searchInput = document.querySelector('.search-input');
-            searchInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    alert(`Searching for: ${searchInput.value}`);
-                    searchInput.value = '';
-                }
-            });
-            
             // Nav links functionality
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -1381,10 +1497,10 @@
             });
             
             console.log('✅ FluxHub Gaming Platform Loaded Successfully!');
-            console.log('✅ TIMER REMOVED as requested');
-            console.log('✅ Using REAL game icons from reliable sources');
-            console.log('✅ All images have fallback placeholders');
-            console.log(`✅ Total Games: ${games.pc.length + games.mobile.length} (${games.pc.length} PC, ${games.mobile.length} Mobile)`);
+            console.log('✅ SEARCH FUNCTIONALITY FIXED - Now working properly');
+            console.log('✅ Search can find games by name, description, or type');
+            console.log('✅ Shows results in dropdown with play buttons');
+            console.log(`✅ Total Games: ${allGames.length} (${games.pc.length} PC, ${games.mobile.length} Mobile)`);
         });
     </script>
 </body>
